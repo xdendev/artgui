@@ -1,0 +1,29 @@
+{
+  "name": "artgui",
+  "version": "1.0.0",
+  "description": "Laravel package with Vue.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:hash": "vite build --config vite.config.with-hash.js",
+    "build:watch": "vite build --watch",
+    "preview": "vite preview",
+    "clean": "rm -rf stubs/*",
+    "prebuild": "npm run clean"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.19",
+    "vite": "^5.0.0",
+    "vue": "^3.4.0"
+  },
+  "dependencies": {
+    "ansicolor": "^2.0.3",
+    "axios": "^1.13.4",
+    "vue": "^3.4.0"
+  }
+}
