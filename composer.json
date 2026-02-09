@@ -1,6 +1,6 @@
 {
     "name": "xden/artgui",
-    "description": "Laravel package with Vue.js integration",
+    "description": "Laravel Artisan GUI devtools",
     "type": "library",
     "license": "MIT",
     "authors": [
