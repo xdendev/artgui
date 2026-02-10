@@ -16,23 +16,16 @@ class ArtGuiServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        if (!config('artgui.enabled')) {
-            return;
-        }
-
         $this->mergeConfigFrom(__DIR__.'/../config/artgui.php', 'artgui');
 
-        $this->registerServices();
-
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        if (config('artgui.enabled')) {
+            $this->registerServices();
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        }
     }
 
     public function boot(): void
     {
-        if (!config('artgui.enabled')) {
-            return;
-        }
-
         $this->publishes([
             __DIR__.'/../config/artgui.php' => config_path('artgui.php'),
         ], 'config');
@@ -42,7 +35,9 @@ class ArtGuiServiceProvider extends ServiceProvider
             __DIR__ . "/../stubs/artgui.js" => public_path('vendor/artgui/artgui.js'),
         ], 'assets');
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'artgui');
+        if (config('artgui.dev_mode', false)) {
+            $this->loadViewsFrom(__DIR__.'/../resources/views', 'artgui');
+        }
     }
 
     private function registerServices(): void
