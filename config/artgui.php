@@ -11,8 +11,6 @@ return [
 
     'enabled' => env('ARTGUI_PACKAGE_ENABLED', env('APP_ENV') !== 'production'),
 
-    'dev_mode' => env('ARTGUI_DEV_MODE', false),
-
     'prefix' => 'artgui',
 
     /*

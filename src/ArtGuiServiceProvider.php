@@ -35,9 +35,7 @@ class ArtGuiServiceProvider extends ServiceProvider
             __DIR__ . "/../stubs/artgui.js" => public_path('vendor/artgui/artgui.js'),
         ], 'assets');
 
-        if (config('artgui.dev_mode', false)) {
-            $this->loadViewsFrom(__DIR__.'/../resources/views', 'artgui');
-        }
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'artgui');
     }
 
     private function registerServices(): void
