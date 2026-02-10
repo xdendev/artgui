@@ -22,11 +22,6 @@
             "Xden\\ArtGui\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Xden\\ArtGui\\Tests\\": "tests/"
-        }
-    },
     "extra": {
         "laravel": {
             "providers": [

@@ -9,7 +9,7 @@ return [
 
     'title' => 'Artisan',
 
-    'enabled' => true,
+    'enabled' => env('ARTGUI_PACKAGE_ENABLED', env('APP_ENV') !== 'production'),
 
     'prefix' => 'artgui',
 
@@ -36,16 +36,6 @@ return [
     |
     */
     'home' => '/',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Only on local
-    |--------------------------------------------------------------------------
-    |
-    | Flag that preventing showing commands if environment is on production
-    |
-    */
-    'local' => true,
 
     /*
     |--------------------------------------------------------------------------

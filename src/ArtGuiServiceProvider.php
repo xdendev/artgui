@@ -16,6 +16,10 @@ class ArtGuiServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        if (!config('artgui.enabled')) {
+            return;
+        }
+
         $this->mergeConfigFrom(__DIR__.'/../config/artgui.php', 'artgui');
 
         $this->registerServices();
@@ -25,6 +29,10 @@ class ArtGuiServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        if (!config('artgui.enabled')) {
+            return;
+        }
+
         $this->publishes([
             __DIR__.'/../config/artgui.php' => config_path('artgui.php'),
         ], 'config');

@@ -9,7 +9,7 @@ This package is fork https://github.com/infureal/artisan-gui
 composer require xden/artgui
 ```
 
-### 2. Публикация ресурсов
+### 2. Публикация ресурсов и настройка
 
 ```bash
 # Публикация конфигурации
@@ -18,7 +18,7 @@ php artisan vendor:publish --tag=config --provider="Xden\ArtGui\ArtGuiServicePro
 php artisan vendor:publish --tag=assets --provider="Xden\ArtGui\ArtGuiServiceProvider"
 ```
 
-### 3. Установка зависимостей и сборка
+### 3. Установка зависимостей и сборка (dev)
 
 ```bash
 docker-compose run --rm npm install ansicolor
