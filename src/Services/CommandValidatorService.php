@@ -40,9 +40,11 @@ final class CommandValidatorService implements CommandValidator
             ];
         }
 
+        // Options are never required: VALUE_REQUIRED only means that a value
+        // must follow the option when it is passed, not that it must be passed.
         foreach ($command->getDefinition()->getOptions() as $option) {
             $rules[$option->getName()] = [
-                $option->isValueRequired() ? 'required' : 'nullable',
+                'nullable',
                 $option->acceptValue() ? ($option->isArray() ? 'array' : 'string') : 'boolean',
             ];
         }

@@ -9,7 +9,30 @@ return [
 
     'title' => 'Artisan',
 
-    'enabled' => env('ARTGUI_PACKAGE_ENABLED', env('APP_ENV') !== 'production'),
+    /*
+    |--------------------------------------------------------------------------
+    | Enabled
+    |--------------------------------------------------------------------------
+    |
+    | Disabled by default: routes are registered only when the flag is set
+    | explicitly, so the GUI never shows up in an environment by accident.
+    |
+    */
+    'enabled' => (bool) env('ARTGUI_PACKAGE_ENABLED', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | HTTP Basic credentials
+    |--------------------------------------------------------------------------
+    |
+    | Always applied to the GUI routes. If either value is empty, every request
+    | is rejected with 403 — the GUI cannot be opened without credentials.
+    |
+    */
+    'auth' => [
+        'username' => env('ARTGUI_USERNAME'),
+        'password' => env('ARTGUI_PASSWORD'),
+    ],
 
     'prefix' => 'artgui',
 
@@ -18,13 +41,13 @@ return [
     | Middleware list for web routes
     |--------------------------------------------------------------------------
     |
-    | You can pass any middleware for routes, by default it's just [web] group
-    | of middleware.
+    | Extra middleware for the GUI routes, by default it's just [web] group.
+    | HTTP Basic auth (see [auth]) is always applied before these and cannot
+    | be removed here.
     |
     */
     'middlewares' => [
         'web',
-//        'auth'
     ],
 
     /*
@@ -42,104 +65,17 @@ return [
     | List of commands
     |--------------------------------------------------------------------------
     |
-    | List of all default commands that has end of execution. Commands like
-    | [serve] not supported in case of server side behavior of php.
-    | Keys means group. You can shuffle commands as you wish and add your own.
+    | Whitelist of commands available in the GUI, grouped by key. Empty by
+    | default: publish the config and list only what is safe to run from a
+    | browser. Commands that never finish (serve, queue:work) and interactive
+    | ones are not supported — execution is synchronous and non-interactive.
+    |
+    | Example:
+    |   'commands' => [
+    |       'cache' => ['cache:clear', 'config:clear'],
+    |       'info' => ['route:list', 'migrate:status'],
+    |   ],
     |
     */
-    'commands' => [
-        'laravel' => [
-            'clear-compiled',
-            'down',
-            'up',
-            'env',
-            'help',
-            'inspire',
-            'list',
-            'notifications:table',
-            'package:discover',
-            'schedule:run',
-            'schema:dump',
-            'session:table',
-            'storage:link',
-            'stub:publish',
-            'auth:clear-resets',
-        ],
-        'optimize' => [
-            'optimize',
-            'optimize:clear',
-        ],
-        'cache' => [
-            'cache:clear',
-            'cache:forget',
-            'cache:table',
-            'config:clear',
-            'config:cache',
-        ],
-        'database' => [
-            'db:seed',
-            'db:wipe',
-        ],
-        'events' => [
-            'event:cache',
-            'event:clear',
-            'event:generate',
-            'event:list',
-        ],
-        'make' => [
-            'make:cast',
-            'make:channel',
-            'make:command',
-            'make:component',
-            'make:controller',
-            'make:event',
-            'make:exception',
-            'make:factory',
-            'make:job',
-            'make:listener',
-            'make:mail',
-            'make:middleware',
-            'make:migration',
-            'make:model',
-            'make:notification',
-            'make:observer',
-            'make:policy',
-            'make:provider',
-            'make:request',
-            'make:resource',
-            'make:rule',
-            'make:seeder',
-            'make:test',
-        ],
-        'migrate' => [
-            'migrate',
-            'migrate:fresh',
-            'migrate:install',
-            'migrate:refresh',
-            'migrate:reset',
-            'migrate:rollback',
-            'migrate:status',
-        ],
-        'queue' => [
-            'queue:batches-table',
-            'queue:clear',
-            'queue:failed',
-            'queue:failed-table',
-            'queue:flush',
-            'queue:forget',
-            'queue:restart',
-            'queue:retry',
-            'queue:retry-batch',
-            'queue:table',
-        ],
-        'route' => [
-            'route:cache',
-            'route:clear',
-            'route:list',
-        ],
-        'view' => [
-            'view:cache',
-            'view:clear'
-        ]
-    ]
+    'commands' => [],
 ];

@@ -23,3 +23,5 @@ stubs/*
 !stubs/artgui.js
 !stubs/artgui.css
 !stubs/.gitkeep
+/composer.lock
+/.phpunit.cache

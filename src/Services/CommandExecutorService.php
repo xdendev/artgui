@@ -45,13 +45,17 @@ final class CommandExecutorService implements CommandExecutor
     public function prepareParameters(Command $command, array $data): array
     {
         $data = array_filter($data, static fn($value) => $value !== null && $value !== '');
-        $options = array_keys($command->getDefinition()->getOptions());
+        $definition = $command->getDefinition();
+        $options = array_keys($definition->getOptions());
 
         $params = [];
 
         foreach ($data as $key => $value) {
             if (in_array($key, $options, true)) {
                 $key = "--{$key}";
+            } elseif (is_string($value) && $definition->hasArgument($key) && $definition->getArgument($key)->isArray()) {
+                // The GUI sends an array argument as one space-separated string.
+                $value = preg_split('/\s+/', trim($value), -1, PREG_SPLIT_NO_EMPTY);
             }
 
             $params[$key] = $value;
