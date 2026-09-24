@@ -18,10 +18,7 @@ class ArtGuiServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/artgui.php', 'artgui');
 
-        if (config('artgui.enabled')) {
-            $this->registerServices();
-            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        }
+        $this->registerServices();
     }
 
     public function boot(): void
@@ -36,6 +33,10 @@ class ArtGuiServiceProvider extends ServiceProvider
         ], 'assets');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'artgui');
+
+        if (config('artgui.enabled')) {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        }
     }
 
     private function registerServices(): void

@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Xden\ArtGui\Http\Controllers\ArtGuiController;
+use Xden\ArtGui\Http\Middleware\BasicAuth;
 
-Route::middleware(config('artgui.middlewares', ['web']))
+Route::middleware([BasicAuth::class, ...config('artgui.middlewares', ['web'])])
     ->prefix(config('artgui.prefix', 'artgui'))
     ->group(function () {
         Route::get('', [ArtGuiController::class, 'index'])->name('artgui.index');
